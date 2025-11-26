@@ -176,7 +176,7 @@ const WindowFrame = ({ title, children, onClose, active, scrollable = true }) =>
         </div>
       </div>
       {/* Window Content */}
-      <div className={`flex-1 relative ${scrollable ? 'overflow-auto custom-scrollbar p-6 pb-32 md:pb-6' : 'overflow-hidden flex flex-col'}`}>
+      <div className={`flex-1 relative ${scrollable ? 'overflow-auto custom-scrollbar p-6 pb-32 md:pb-6' : 'overflow-hidden flex flex-col min-h-0'}`}>
         {scrollable && <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>}
         {children}
       </div>
@@ -517,7 +517,7 @@ export default function App() {
           {/* AI ASSISTANT VIEW */}
           {activeTab === 'assistant' && (
              <WindowFrame title="neural_uplink_v2.bin" active={true} onClose={() => setActiveTab('dashboard')} scrollable={false}> 
-               <div className="flex flex-col h-full max-w-4xl mx-auto p-4">
+               <div className="flex flex-col h-full max-w-4xl mx-auto p-4 pb-20 md:pb-4 min-h-0">
                  <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 custom-scrollbar">
                    {chatHistory.map((msg, idx) => (
                      <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -568,7 +568,7 @@ export default function App() {
               {/* Blog List (Sidebar style) */}
               <div className={`flex-1 md:max-w-md ${selectedPost ? 'hidden md:block' : 'block'}`}>
                 <WindowFrame title="mission_logs.db" active={true} onClose={() => {}} scrollable={false}>
-                  <div className="space-y-2 h-full overflow-auto custom-scrollbar p-4 pb-20">
+                  <div className="space-y-2 h-full overflow-auto custom-scrollbar p-4 pb-20 min-h-0">
                     {BLOG_POSTS.map(post => (
                       <div 
                         key={post.id} 
