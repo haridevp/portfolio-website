@@ -223,6 +223,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [bootSequence, setBootSequence] = useState(true);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [lastCommit, setLastCommit] = useState("Loading...");
   
   // AI States
   const [chatInput, setChatInput] = useState("");
@@ -235,9 +236,51 @@ export default function App() {
 
   const chatEndRef = useRef(null);
 
+  const getTimeAgo = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+    
+    let interval = Math.floor(seconds / 31536000);
+    if (interval >= 1) return interval + " years ago";
+    
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) return interval + " months ago";
+    
+    interval = Math.floor(seconds / 86400);
+    if (interval >= 1) return interval + " days ago";
+    
+    interval = Math.floor(seconds / 3600);
+    if (interval >= 1) return interval + " hours ago";
+    
+    interval = Math.floor(seconds / 60);
+    if (interval >= 1) return interval + " minutes ago";
+    
+    return Math.floor(seconds) + " seconds ago";
+  };
+
   useEffect(() => {
     // Simulate boot sequence
     const timer = setTimeout(() => setBootSequence(false), 2500);
+    
+    // Fetch Github Last Commit
+    const fetchLastCommit = async () => {
+        try {
+            const response = await fetch('https://api.github.com/users/haridevp/events');
+            const data = await response.json();
+            const pushEvent = data.find(event => event.type === 'PushEvent');
+            if (pushEvent) {
+                setLastCommit(getTimeAgo(pushEvent.created_at));
+            } else {
+                setLastCommit("No recent commits");
+            }
+        } catch (error) {
+            console.error("Error fetching Github data:", error);
+            setLastCommit("Offline");
+        }
+    };
+    fetchLastCommit();
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -397,7 +440,7 @@ export default function App() {
                   </div>
                   <div className="p-4 bg-slate-800/50 border border-slate-700 rounded">
                     <div className="text-xs font-mono text-slate-500 mb-2">LAST_COMMIT</div>
-                    <div className="text-slate-200">2 hours ago</div>
+                    <div className="text-slate-200">{lastCommit}</div>
                   </div>
                   <div className="p-4 bg-slate-800/50 border border-slate-700 rounded">
                     <div className="text-xs font-mono text-slate-500 mb-2">SECURITY_CLEARANCE</div>
