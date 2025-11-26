@@ -11,7 +11,9 @@ const USER_CONFIG = {
   linkedin: "https://linkedin.com/in/haridevp",
   googleDev: "https://g.dev/haridevp",
   instagram: "https://www.instagram.com/_.haridev__/",
-  website: "https://haridevp.me"
+  website: "https://haridevp.me",
+  thmUserPublicId: "1313145",
+  htbUserId: "1734274"
 };
 
 const RESUME_DATA = {
@@ -631,9 +633,31 @@ export default function App() {
                 })}
               </div>
               
-              <div className="mt-8 p-6 bg-slate-900/50 border border-dashed border-slate-700 rounded-lg text-center">
-                 <h3 className="text-slate-400 font-mono mb-2">LIVE_STATS</h3>
-                 <p className="text-sm text-slate-500">Connect HackTheBox API to display realtime rank.</p>
+              <div className="mt-8">
+                 <h3 className="text-slate-400 font-mono mb-4 border-b border-slate-700 pb-2">LIVE_STATS</h3>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* TryHackMe Badge */}
+                    <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 flex flex-col items-center justify-center hover:border-cyan-500/50 transition-all">
+                       <h4 className="text-cyan-400 font-mono text-sm mb-4">TRYHACKME_RANK</h4>
+                       <iframe 
+                         src={`https://tryhackme.com/api/v2/badges/public-profile?userPublicId=${USER_CONFIG.thmUserPublicId}`} 
+                         className="w-full h-60 border-none overflow-hidden"
+                         title="TryHackMe Stats"
+                       ></iframe>
+                    </div>
+
+                    {/* HackTheBox Badge */}
+                    <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 flex flex-col items-center justify-center hover:border-cyan-500/50 transition-all">
+                       <h4 className="text-green-400 font-mono text-sm mb-4">HACKTHEBOX_PROFILE</h4>
+                       <div className="w-full flex justify-center">
+                         <img 
+                           src={`https://www.hackthebox.com/badge/image/${USER_CONFIG.htbUserId}`} 
+                           alt="HackTheBox Badge"
+                           className="max-w-full h-auto rounded shadow-lg" 
+                         />
+                       </div>
+                    </div>
+                 </div>
               </div>
             </WindowFrame>
           )}
