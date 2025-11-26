@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Shield, FileText, Award, Mail, Cpu, Globe, ChevronRight, Hash, ExternalLink, Lock, Minimize2, Maximize2, X, Download, Bot, Sparkles, Send, Github, Linkedin, Braces, Cloud } from 'lucide-react';
+import { Terminal, Shield, FileText, Award, Mail, Cpu, Globe, ChevronRight, Hash, ExternalLink, Lock, Minimize2, Maximize2, X, Download, Bot, Sparkles, Send, Github, Linkedin, Braces, Cloud, Instagram } from 'lucide-react';
 
 // --- DATA CONFIGURATION ---
 const USER_CONFIG = {
@@ -10,6 +10,7 @@ const USER_CONFIG = {
   github: "https://github.com/haridevp",
   linkedin: "https://linkedin.com/in/haridevp",
   googleDev: "https://g.dev/haridevp",
+  instagram: "https://instagram.com/haridevp",
   website: "https://haridevp.me"
 };
 
@@ -338,6 +339,7 @@ export default function App() {
             <a href={USER_CONFIG.github} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Github size={20} /></a>
             <a href={USER_CONFIG.linkedin} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Linkedin size={20} /></a>
             <a href={USER_CONFIG.googleDev} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Braces size={20} /></a>
+            <a href={USER_CONFIG.instagram} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Instagram size={20} /></a>
           </div>
         </header>
 
