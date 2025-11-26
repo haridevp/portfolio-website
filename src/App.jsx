@@ -147,7 +147,7 @@ const GlitchText = ({ text, as = 'span', className = '' }) => {
   );
 };
 
-const WindowFrame = ({ title, children, onClose, active }) => {
+const WindowFrame = ({ title, children, onClose, active, scrollable = true }) => {
   const [isMaximized, setIsMaximized] = useState(false);
 
   const handleMinimize = () => {
@@ -176,8 +176,8 @@ const WindowFrame = ({ title, children, onClose, active }) => {
         </div>
       </div>
       {/* Window Content */}
-      <div className="flex-1 overflow-auto custom-scrollbar p-6 pb-20 md:pb-6 relative">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
+      <div className={`flex-1 relative ${scrollable ? 'overflow-auto custom-scrollbar p-6 pb-32 md:pb-6' : 'overflow-hidden flex flex-col'}`}>
+        {scrollable && <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>}
         {children}
       </div>
     </div>
@@ -444,7 +444,7 @@ export default function App() {
       </div>
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 p-4 md:p-8 pb-24 md:pb-8 overflow-hidden flex flex-col z-10 relative">
+      <main className="flex-1 p-4 md:p-8 overflow-hidden flex flex-col z-10 relative">
         
         {/* HEADER */}
         <header className="flex justify-between items-center mb-6">
@@ -516,8 +516,8 @@ export default function App() {
 
           {/* AI ASSISTANT VIEW */}
           {activeTab === 'assistant' && (
-             <WindowFrame title="neural_uplink_v2.bin" active={true} onClose={() => setActiveTab('dashboard')}> 
-               <div className="flex flex-col h-full max-w-4xl mx-auto">
+             <WindowFrame title="neural_uplink_v2.bin" active={true} onClose={() => setActiveTab('dashboard')} scrollable={false}> 
+               <div className="flex flex-col h-full max-w-4xl mx-auto p-4">
                  <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 custom-scrollbar">
                    {chatHistory.map((msg, idx) => (
                      <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -567,8 +567,8 @@ export default function App() {
             <div className="h-full flex gap-4">
               {/* Blog List (Sidebar style) */}
               <div className={`flex-1 md:max-w-md ${selectedPost ? 'hidden md:block' : 'block'}`}>
-                <WindowFrame title="mission_logs.db" active={true} onClose={() => {}}>
-                  <div className="space-y-2">
+                <WindowFrame title="mission_logs.db" active={true} onClose={() => {}} scrollable={false}>
+                  <div className="space-y-2 h-full overflow-auto custom-scrollbar p-4 pb-20">
                     {BLOG_POSTS.map(post => (
                       <div 
                         key={post.id} 
