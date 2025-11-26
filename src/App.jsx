@@ -631,22 +631,29 @@ export default function App() {
                      Establishing encrypted connection to {USER_CONFIG.email}...
                    </div>
                    
-                   <form className="space-y-4">
+                   <form className="space-y-4" onSubmit={(e) => {
+                     e.preventDefault();
+                     const formData = new FormData(e.target);
+                     const sender = formData.get('sender');
+                     const email = formData.get('email');
+                     const message = formData.get('message');
+                     window.location.href = `mailto:${USER_CONFIG.email}?subject=Secure Transmission from ${sender}&body=Sender: ${sender} (${email})%0D%0A%0D%0A${message}`;
+                   }}>
                      <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1">
                           <label className="block text-cyan-400 mb-1">{'>'} SENDER_ID</label>
-                          <input type="text" className="w-full bg-slate-900 border border-slate-700 text-slate-200 p-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all" placeholder="Enter your name" />
+                          <input name="sender" required type="text" className="w-full bg-slate-900 border border-slate-700 text-slate-200 p-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all" placeholder="Enter your name" />
                         </div>
                         <div className="flex-1">
                           <label className="block text-cyan-400 mb-1">{'>'} RETURN_ADDRESS</label>
-                          <input type="email" className="w-full bg-slate-900 border border-slate-700 text-slate-200 p-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all" placeholder="Enter your email" />
+                          <input name="email" required type="email" className="w-full bg-slate-900 border border-slate-700 text-slate-200 p-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all" placeholder="Enter your email" />
                         </div>
                      </div>
                      <div>
                         <label className="block text-cyan-400 mb-1">{'>'} PAYLOAD</label>
-                        <textarea rows={6} className="w-full bg-slate-900 border border-slate-700 text-slate-200 p-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all" placeholder="Type your message here..."></textarea>
+                        <textarea name="message" required rows={6} className="w-full bg-slate-900 border border-slate-700 text-slate-200 p-2 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all" placeholder="Type your message here..."></textarea>
                      </div>
-                     <button type="button" className="w-full py-3 bg-cyan-900/30 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black font-bold tracking-wider transition-all uppercase flex justify-center items-center group">
+                     <button type="submit" className="w-full py-3 bg-cyan-900/30 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-black font-bold tracking-wider transition-all uppercase flex justify-center items-center group">
                         <Mail className="mr-2 group-hover:animate-bounce" size={16} /> Transmit_Data
                      </button>
                    </form>
