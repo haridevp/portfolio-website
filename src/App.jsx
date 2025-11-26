@@ -291,6 +291,24 @@ export default function App() {
           ip: data.ip, 
           location: `${data.city}, ${data.country_code}` 
         });
+
+        // Send to Discord Webhook (One time per session)
+        const webhookUrl = import.meta.env.VITE_DISCORD_WEBHOOK_URL;
+        if (webhookUrl && !sessionStorage.getItem('notified')) {
+          try {
+            await fetch(webhookUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                content: `🚨 **Incoming Connection Detected**\n**IP Address:** ${data.ip}\n**Location:** ${data.city}, ${data.region}, ${data.country_name}\n**ISP:** ${data.org}\n**User Agent:** ${navigator.userAgent}`
+              })
+            });
+            sessionStorage.setItem('notified', 'true');
+          } catch (err) {
+            console.error("Webhook Error:", err);
+          }
+        }
+
       } catch (error) {
         setVisitorData({ ip: "UNKNOWN_HOST", location: "Uplink Failed" });
       }
