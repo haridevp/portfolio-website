@@ -10,7 +10,7 @@ const USER_CONFIG = {
   github: "https://github.com/haridevp",
   linkedin: "https://linkedin.com/in/haridevp",
   googleDev: "https://g.dev/haridevp",
-  instagram: "https://instagram.com/haridevp",
+  instagram: "https://www.instagram.com/_.haridev__/",
   website: "https://haridevp.me"
 };
 
