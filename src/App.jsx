@@ -678,7 +678,7 @@ export default function App() {
                      const sender = formData.get('sender');
                      const email = formData.get('email');
                      const message = formData.get('message');
-                     window.location.href = `mailto:${USER_CONFIG.email}?subject=Secure Transmission from ${sender}&body=Sender: ${sender} (${email})%0D%0A%0D%0A${message}`;
+                     window.location.href = `mailto:${USER_CONFIG.email}?subject=Portfolio Contact from ${sender}&body=${message}%0D%0A%0D%0A--------------------------------%0D%0ASender Details:%0D%0AName: ${sender}%0D%0AEmail: ${email}`;
                    }}>
                      <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1">
