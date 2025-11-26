@@ -657,17 +657,6 @@ export default function App() {
                         <Mail className="mr-2 group-hover:animate-bounce" size={16} /> Transmit_Data
                      </button>
                    </form>
-
-                   <div className="mt-8 flex justify-center space-x-8 text-slate-500">
-                     <div className="flex flex-col items-center hover:text-cyan-400 cursor-pointer transition-colors">
-                        <ExternalLink size={20} className="mb-1" />
-                        <span className="text-xs">PGP_KEY</span>
-                     </div>
-                     <div className="flex flex-col items-center hover:text-cyan-400 cursor-pointer transition-colors">
-                        <Globe size={20} className="mb-1" />
-                        <span className="text-xs">SIGNAL</span>
-                     </div>
-                   </div>
                  </div>
                </div>
             </WindowFrame>
