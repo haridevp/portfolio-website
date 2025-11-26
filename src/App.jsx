@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Shield, FileText, Award, Mail, Cpu, Globe, ChevronRight, Hash, ExternalLink, Lock, Minimize2, Maximize2, X, Download, Bot, Sparkles, Send, Github, Linkedin } from 'lucide-react';
+import { Terminal, Shield, FileText, Award, Mail, Cpu, Globe, ChevronRight, Hash, ExternalLink, Lock, Minimize2, Maximize2, X, Download, Bot, Sparkles, Send, Github, Linkedin, Braces, Cloud } from 'lucide-react';
 
 // --- DATA CONFIGURATION ---
 const USER_CONFIG = {
@@ -9,6 +9,7 @@ const USER_CONFIG = {
   email: "haridevpnarayananivas@gmail.com",
   github: "https://github.com/haridevp",
   linkedin: "https://linkedin.com/in/haridevp",
+  googleDev: "https://g.dev/haridevp",
   website: "https://haridevp.me"
 };
 
@@ -85,7 +86,9 @@ const TROPHIES = [
   { title: "Google Cybersecurity Cert", issuer: "Google", date: "2023", icon: "G" },
   { title: "Top 1% Rank", issuer: "TryHackMe", date: "2024", icon: "THM" },
   { title: "Dante Pro Lab", issuer: "HackTheBox", date: "2023", icon: "HTB" },
-  { title: "Certified Ethical Hacker", issuer: "EC-Council", date: "2022", icon: "CEH" }
+  { title: "Certified Ethical Hacker", issuer: "EC-Council", date: "2022", icon: "CEH" },
+  { title: "GDSC Member '23-24", issuer: "Google Developers", date: "2024", icon: "GDSC", link: "https://developers.google.com/profile/badges/community/gdsc/2023/member" },
+  { title: "Cloud Skills Boost", issuer: "Google Cloud", date: "Active", icon: "GCP", link: "https://www.cloudskillsboost.google/public_profiles/85843ac3-3173-4aa4-85bc-5e02126aa3cb" }
 ];
 
 // --- API HELPER ---
@@ -334,6 +337,7 @@ export default function App() {
           <div className="flex space-x-4">
             <a href={USER_CONFIG.github} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Github size={20} /></a>
             <a href={USER_CONFIG.linkedin} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Linkedin size={20} /></a>
+            <a href={USER_CONFIG.googleDev} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors"><Braces size={20} /></a>
           </div>
         </header>
 
@@ -600,19 +604,31 @@ export default function App() {
           {activeTab === 'achievements' && (
             <WindowFrame title="trophy_room.exe" active={true} onClose={() => {}}>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {TROPHIES.map((trophy, idx) => (
-                  <div key={idx} className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg border border-slate-700 flex flex-col items-center text-center group hover:-translate-y-1 hover:border-cyan-500/50 transition-all duration-300 relative overflow-hidden">
+                {TROPHIES.map((trophy, idx) => {
+                  const content = (
+                    <>
                     <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <div className="w-16 h-16 mb-4 rounded-full bg-slate-800 border-2 border-slate-600 flex items-center justify-center text-2xl font-bold font-mono text-slate-400 group-hover:border-cyan-400 group-hover:text-cyan-400 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all">
-                      {trophy.icon}
+                      {trophy.icon === 'GDSC' ? <Globe size={32} /> : trophy.icon === 'GCP' ? <Cloud size={32} /> : trophy.icon}
                     </div>
                     <h3 className="font-bold text-slate-200 mb-1">{trophy.title}</h3>
                     <p className="text-xs font-mono text-slate-500">{trophy.issuer}</p>
                     <div className="mt-4 text-xs bg-slate-800 px-2 py-1 rounded text-slate-400 border border-slate-700">
                       ACQUIRED: {trophy.date}
                     </div>
-                  </div>
-                ))}
+                    </>
+                  );
+
+                  return trophy.link ? (
+                    <a key={idx} href={trophy.link} target="_blank" rel="noreferrer" className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg border border-slate-700 flex flex-col items-center text-center group hover:-translate-y-1 hover:border-cyan-500/50 transition-all duration-300 relative overflow-hidden cursor-pointer">
+                      {content}
+                    </a>
+                  ) : (
+                    <div key={idx} className="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-lg border border-slate-700 flex flex-col items-center text-center group hover:-translate-y-1 hover:border-cyan-500/50 transition-all duration-300 relative overflow-hidden">
+                      {content}
+                    </div>
+                  );
+                })}
               </div>
               
               <div className="mt-8 p-6 bg-slate-900/50 border border-dashed border-slate-700 rounded-lg text-center">
