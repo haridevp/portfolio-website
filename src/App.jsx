@@ -224,6 +224,7 @@ export default function App() {
   const [bootSequence, setBootSequence] = useState(true);
   const [selectedPost, setSelectedPost] = useState(null);
   const [lastCommit, setLastCommit] = useState("Loading...");
+  const [visitorData, setVisitorData] = useState({ ip: "Scanning...", location: "Triangulating..." });
   
   // AI States
   const [chatInput, setChatInput] = useState("");
@@ -280,6 +281,21 @@ export default function App() {
         }
     };
     fetchLastCommit();
+
+    // Fetch Visitor Data
+    const fetchVisitorData = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        setVisitorData({ 
+          ip: data.ip, 
+          location: `${data.city}, ${data.country_code}` 
+        });
+      } catch (error) {
+        setVisitorData({ ip: "UNKNOWN_HOST", location: "Uplink Failed" });
+      }
+    };
+    fetchVisitorData();
 
     return () => clearTimeout(timer);
   }, []);
@@ -443,8 +459,9 @@ export default function App() {
                     <div className="text-slate-200">{lastCommit}</div>
                   </div>
                   <div className="p-4 bg-slate-800/50 border border-slate-700 rounded">
-                    <div className="text-xs font-mono text-slate-500 mb-2">SECURITY_CLEARANCE</div>
-                    <div className="text-red-400 font-mono">LEVEL_4</div>
+                    <div className="text-xs font-mono text-slate-500 mb-2">VISITOR_UPLINK</div>
+                    <div className="text-cyan-400 font-mono text-sm">{visitorData.ip}</div>
+                    <div className="text-xs text-emerald-400 font-mono mt-1">{visitorData.location}</div>
                   </div>
                 </div>
               </div>
