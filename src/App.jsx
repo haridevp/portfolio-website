@@ -419,10 +419,10 @@ export default function App() {
 
         <div className="flex-1 py-6 space-y-1">
           <NavItem id="dashboard" label="> Dashboard" icon={Cpu} activeTab={activeTab} setActiveTab={setActiveTab} />
-          <NavItem id="blog" label="> Mission Logs" icon={FileText} activeTab={activeTab} setActiveTab={setActiveTab} />
-          <NavItem id="resume" label="> Personnel File" icon={Terminal} activeTab={activeTab} setActiveTab={setActiveTab} />
+          <NavItem id="blog" label="> Writeups_&_Logs" icon={FileText} activeTab={activeTab} setActiveTab={setActiveTab} />
+          <NavItem id="resume" label="> Resume_&_Bio" icon={Terminal} activeTab={activeTab} setActiveTab={setActiveTab} />
           <NavItem id="achievements" label="> Trophy Room" icon={Award} activeTab={activeTab} setActiveTab={setActiveTab} />
-          <NavItem id="contact" label="> Secure Comms" icon={Mail} activeTab={activeTab} setActiveTab={setActiveTab} />
+          <NavItem id="contact" label="> Contact_Me" icon={Mail} activeTab={activeTab} setActiveTab={setActiveTab} />
           <div className="pt-4 mt-4 border-t border-slate-800/50">
              <NavItem id="assistant" label="✨ TACTICAL_AI" icon={Bot} activeTab={activeTab} setActiveTab={setActiveTab} special={true} />
           </div>
