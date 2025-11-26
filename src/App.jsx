@@ -147,29 +147,34 @@ const GlitchText = ({ text, as = 'span', className = '' }) => {
   );
 };
 
-const WindowFrame = ({ title, children, onClose, active }) => (
-  <div className={`flex flex-col h-full border border-slate-700 bg-slate-900/90 backdrop-blur-sm rounded-lg overflow-hidden transition-all duration-300 ${active ? 'ring-1 ring-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]' : 'opacity-50 blur-[1px] scale-[0.98]'}`}>
-    {/* Window Header */}
-    <div className="flex items-center justify-between px-3 py-2 bg-slate-800/80 border-b border-slate-700">
-      <div className="flex items-center space-x-2">
-        <div className="w-3 h-3 rounded-full bg-red-500/80" />
-        <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-        <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-        <span className="ml-2 text-xs font-mono text-cyan-400 opacity-80">{title}</span>
+const WindowFrame = ({ title, children, onClose, active }) => {
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  return (
+    <div className={`flex flex-col border border-slate-700 bg-slate-900/90 backdrop-blur-sm overflow-hidden transition-all duration-300 ${
+      isMaximized 
+        ? 'fixed inset-0 z-50 rounded-none m-0 w-screen h-screen' 
+        : `h-full rounded-lg ${active ? 'ring-1 ring-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]' : 'opacity-50 blur-[1px] scale-[0.98]'}`
+    }`}>
+      {/* Window Header */}
+      <div className="flex items-center justify-between px-3 py-2 bg-slate-800/80 border-b border-slate-700 select-none" onDoubleClick={() => setIsMaximized(!isMaximized)}>
+        <div className="flex items-center space-x-2">
+          <span className="ml-2 text-xs font-mono text-cyan-400 opacity-80">{title}</span>
+        </div>
+        <div className="flex space-x-2 text-slate-400">
+          <Minimize2 size={12} className="cursor-pointer hover:text-cyan-400" onClick={onClose} />
+          <Maximize2 size={12} className="cursor-pointer hover:text-cyan-400" onClick={() => setIsMaximized(!isMaximized)} />
+          <X size={12} className="cursor-pointer hover:text-red-400" onClick={onClose} />
+        </div>
       </div>
-      <div className="flex space-x-2 text-slate-400">
-        <Minimize2 size={12} />
-        <Maximize2 size={12} />
-        <X size={12} className="cursor-pointer hover:text-red-400" onClick={onClose} />
+      {/* Window Content */}
+      <div className="flex-1 overflow-auto custom-scrollbar p-6 relative">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
+        {children}
       </div>
     </div>
-    {/* Window Content */}
-    <div className="flex-1 overflow-auto custom-scrollbar p-6 relative">
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
-      {children}
-    </div>
-  </div>
-);
+  );
+};
 
 const NavItem = ({ id, label, icon: Icon, activeTab, setActiveTab, special = false }) => (
   <button
