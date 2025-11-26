@@ -90,7 +90,7 @@ const TROPHIES = [
 
 // --- API HELPER ---
 const callGemini = async (prompt, systemInstruction = "") => {
-  const apiKey = ""; // Injected by environment
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   try {
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
