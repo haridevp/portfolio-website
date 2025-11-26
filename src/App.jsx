@@ -11,7 +11,7 @@ const USER_CONFIG = {
   linkedin: "https://linkedin.com/in/haridevp",
   googleDev: "https://g.dev/haridevp",
   instagram: "https://www.instagram.com/_.haridev__/",
-  website: "https://haridevp.me",
+  website: "https://haridevp.tech",
   thmUserPublicId: "1313145",
   htbUserId: "1734274"
 };
