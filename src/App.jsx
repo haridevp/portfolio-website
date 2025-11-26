@@ -504,7 +504,7 @@ export default function App() {
             <div className="h-full flex gap-4">
               {/* Blog List (Sidebar style) */}
               <div className={`flex-1 md:max-w-md ${selectedPost ? 'hidden md:block' : 'block'}`}>
-                <WindowFrame title="mission_logs.db" active={!selectedPost} onClose={() => {}}>
+                <WindowFrame title="mission_logs.db" active={true} onClose={() => {}}>
                   <div className="space-y-2">
                     {BLOG_POSTS.map(post => (
                       <div 
