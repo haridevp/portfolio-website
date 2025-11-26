@@ -161,7 +161,7 @@ const WindowFrame = ({ title, children, onClose, active }) => {
   return (
     <div className={`flex flex-col border border-slate-700 bg-slate-900/90 backdrop-blur-sm overflow-hidden transition-all duration-300 ${
       isMaximized 
-        ? 'fixed inset-0 z-50 rounded-none m-0 w-screen h-screen' 
+        ? 'fixed inset-0 z-[60] rounded-none m-0 w-screen h-screen' 
         : `h-full rounded-lg ${active ? 'ring-1 ring-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)]' : 'opacity-50 blur-[1px] scale-[0.98]'}`
     }`}>
       {/* Window Header */}
@@ -176,7 +176,7 @@ const WindowFrame = ({ title, children, onClose, active }) => {
         </div>
       </div>
       {/* Window Content */}
-      <div className="flex-1 overflow-auto custom-scrollbar p-6 relative">
+      <div className="flex-1 overflow-auto custom-scrollbar p-6 pb-20 md:pb-6 relative">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
         {children}
       </div>
@@ -397,7 +397,7 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen w-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500/30 overflow-hidden flex relative">
+    <div className="h-[100dvh] w-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500/30 overflow-hidden flex relative">
       
       {/* BACKGROUND EFFECTS */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950 to-slate-950 z-0 pointer-events-none"></div>
@@ -444,7 +444,7 @@ export default function App() {
       </div>
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 p-4 md:p-8 overflow-hidden flex flex-col z-10 relative">
+      <main className="flex-1 p-4 md:p-8 pb-24 md:pb-8 overflow-hidden flex flex-col z-10 relative">
         
         {/* HEADER */}
         <header className="flex justify-between items-center mb-6">
