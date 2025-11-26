@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Terminal, Shield, FileText, Award, Mail, Cpu, Globe, ChevronRight, Hash, ExternalLink, Lock, Minimize2, Maximize2, X, Download, Bot, Sparkles, Send, Github, Linkedin, Braces, Cloud, Instagram } from 'lucide-react';
 
@@ -467,7 +468,7 @@ export default function App() {
           {/* DASHBOARD VIEW */}
           {activeTab === 'dashboard' && (
             <WindowFrame title="sys_overview.exe" active={true} onClose={() => {}}>
-              <div className="h-full flex flex-col justify-center max-w-4xl mx-auto">
+              <div className="h-auto flex flex-col justify-center max-w-4xl mx-auto">
                 <div className="mb-8">
                   <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
                     <GlitchText text="HELLO, WORLD" />
