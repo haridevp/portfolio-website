@@ -510,7 +510,11 @@ export default function App() {
                       <div 
                         key={post.id} 
                         onClick={() => { setSelectedPost(post); setAnalysisResult(null); }}
-                        className={`p-4 border border-slate-800 rounded hover:border-cyan-500/50 hover:bg-slate-800/50 cursor-pointer transition-all group ${selectedPost?.id === post.id ? 'bg-slate-800 border-cyan-500' : 'bg-slate-900/50'}`}
+                        className={`p-4 border border-slate-800 rounded hover:border-cyan-500/50 hover:bg-slate-800/50 cursor-pointer transition-all group ${
+                          selectedPost?.id === post.id 
+                            ? 'bg-slate-800 border-cyan-500' 
+                            : 'bg-slate-900 opacity-90 hover:opacity-100'
+                        }`}
                       >
                         <div className="flex justify-between items-start mb-2">
                           <span className={`text-xs font-mono px-2 py-0.5 rounded ${ 
