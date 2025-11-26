@@ -284,15 +284,43 @@ export default function App() {
 
     // Fetch Visitor Data
     const fetchVisitorData = async () => {
+      let ipv4 = "Unknown";
+      let ipv6 = "Not Detected";
+      let location = "Triangulating...";
+      let isp = "Unknown";
+
       try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
+        // 1. Get IPv4 (Mandatory for Dashboard)
+        try {
+            const v4Res = await fetch('https://api.ipify.org?format=json');
+            const v4Data = await v4Res.json();
+            ipv4 = v4Data.ip;
+        } catch (e) { console.error("IPv4 fetch failed", e); }
+
+        // 2. Get IPv6 (For Webhook)
+        try {
+            const v6Res = await fetch('https://api6.ipify.org?format=json');
+            const v6Data = await v6Res.json();
+            ipv6 = v6Data.ip;
+        } catch (e) { /* IPv6 might not be available */ }
+
+        // 3. Get Location & ISP
+        try {
+            const locRes = await fetch('https://ipapi.co/json/');
+            const locData = await locRes.json();
+            if (!locData.error) {
+                location = `${locData.city}, ${locData.country_code}`;
+                isp = locData.org;
+            }
+        } catch (e) { console.error("Location fetch failed", e); }
+
+        // Update Dashboard (Show IPv4 only)
         setVisitorData({ 
-          ip: data.ip, 
-          location: `${data.city}, ${data.country_code}` 
+          ip: ipv4, 
+          location: location 
         });
 
-        // Send to Discord Webhook (One time per session)
+        // Send to Discord Webhook
         const webhookUrl = import.meta.env.VITE_DISCORD_WEBHOOK_URL;
         if (webhookUrl && !sessionStorage.getItem('notified')) {
           try {
@@ -300,7 +328,7 @@ export default function App() {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                content: `🚨 **Incoming Connection Detected**\n**IP Address:** ${data.ip}\n**Location:** ${data.city}, ${data.region}, ${data.country_name}\n**ISP:** ${data.org}\n**User Agent:** ${navigator.userAgent}`
+                content: `🚨 **Incoming Connection Detected**\n**IPv4:** ${ipv4}\n**IPv6:** ${ipv6}\n**Location:** ${location}\n**ISP:** ${isp}\n**User Agent:** ${navigator.userAgent}`
               })
             });
             sessionStorage.setItem('notified', 'true');
